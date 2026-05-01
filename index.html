@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lagnspasht Calculator — Vedic Panchang Precision Tool</title>
+  <meta name="description" content="High-precision Lagnspasht Calculator using Sarini Fal and Ishtkal method. Computes Rashi, Ansh, Kala, and Vikla with Panchang accuracy." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Animated Cosmic Background -->
+  <div class="bg-cosmos" aria-hidden="true"></div>
+
+  <div class="app-container">
+
+    <!-- ═══ HEADER ═══ -->
+    <header class="app-header">
+      <div class="header-ornament">
+        <span class="ornament-line"></span>
+        <span class="ornament-symbol">✦</span>
+        <span class="ornament-line"></span>
+      </div>
+      <h1 class="app-title">Lagnspasht</h1>
+      <p class="app-subtitle">Panchang Precision Calculator</p>
+    </header>
+
+    <!-- ═══ ERROR CONTAINER ═══ -->
+    <div id="error-container" class="error-container" role="alert">
+      <div class="error-title">Validation Error</div>
+      <div class="error-message"></div>
+    </div>
+
+    <!-- ═══ PANEL 1: SARINI FAL ═══ -->
+    <section class="panel" id="panel-sarini-fal">
+      <h2 class="panel-title">
+        <span class="icon">☉</span>
+        Sarini Fal
+      </h2>
+      <p class="info-hint">Enter the Sarini Fal from the Panchang corresponding to the Suryaspasht.</p>
+      <div class="section-divider"><span class="line"></span><span class="dot"></span><span class="line"></span></div>
+      <div class="input-row">
+        <div class="input-group">
+          <label class="input-label" for="sf-ghati">Ghati</label>
+          <input type="number" class="input-field" id="sf-ghati" placeholder="0" min="0" data-maxdigits="6" />
+        </div>
+        <div class="input-group">
+          <label class="input-label" for="sf-pal">Pal</label>
+          <input type="number" class="input-field" id="sf-pal" placeholder="0" min="0" max="59" data-maxdigits="2" />
+        </div>
+        <div class="input-group">
+          <label class="input-label" for="sf-vipal">Vipal</label>
+          <input type="number" class="input-field" id="sf-vipal" placeholder="0" min="0" max="59" data-maxdigits="2" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ PANEL 2: ISHTKAL ═══ -->
+    <section class="panel" id="panel-ishtkal">
+      <h2 class="panel-title">
+        <span class="icon">⏳</span>
+        Ishtkal
+      </h2>
+      <p class="info-hint">Enter the Ishtkal (elapsed time) in Ghati, Pal, Vipal.</p>
+      <div class="section-divider"><span class="line"></span><span class="dot"></span><span class="line"></span></div>
+      <div class="input-row">
+        <div class="input-group">
+          <label class="input-label" for="ik-ghati">Ghati</label>
+          <input type="number" class="input-field" id="ik-ghati" placeholder="0" min="0" data-maxdigits="6" />
+        </div>
+        <div class="input-group">
+          <label class="input-label" for="ik-pal">Pal</label>
+          <input type="number" class="input-field" id="ik-pal" placeholder="0" min="0" max="59" data-maxdigits="2" />
+        </div>
+        <div class="input-group">
+          <label class="input-label" for="ik-vipal">Vipal</label>
+          <input type="number" class="input-field" id="ik-vipal" placeholder="0" min="0" max="59" data-maxdigits="2" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ PANEL 3: PANCHANG ENTRIES ═══ -->
+    <section class="panel" id="panel-panchang">
+      <h2 class="panel-title">
+        <span class="icon">📜</span>
+        Panchang Entries
+      </h2>
+      <p class="info-hint">Provide two adjacent Panchang entries. Entry A: Sarini Fal just ≤ Yogfal. Entry B: previous entry before A.</p>
+      <div class="section-divider"><span class="line"></span><span class="dot"></span><span class="line"></span></div>
+
+      <!-- Entry A -->
+      <div class="entry-subpanel">
+        <div class="entry-label">
+          <span class="entry-badge">A</span>
+          Entry A — Just ≤ Yogfal
+        </div>
+        <div class="input-row">
+          <div class="input-group">
+            <label class="input-label" for="ea-sf-ghati">Ghati</label>
+            <input type="number" class="input-field" id="ea-sf-ghati" placeholder="0" min="0" data-maxdigits="6" />
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="ea-sf-pal">Pal</label>
+            <input type="number" class="input-field" id="ea-sf-pal" placeholder="0" min="0" max="59" data-maxdigits="2" />
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="ea-sf-vipal">Vipal</label>
+            <input type="number" class="input-field" id="ea-sf-vipal" placeholder="0" min="0" max="59" data-maxdigits="2" />
+          </div>
+        </div>
+        <div class="rashi-ansh-row">
+          <div class="input-group">
+            <label class="input-label" for="ea-rashi">Rashi (0–11)</label>
+            <input type="number" class="input-field" id="ea-rashi" placeholder="0" min="0" max="11" data-maxdigits="2" />
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="ea-ansh">Ansh (0–29)</label>
+            <input type="number" class="input-field" id="ea-ansh" placeholder="0" min="0" max="29" data-maxdigits="2" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Entry B -->
+      <div class="entry-subpanel">
+        <div class="entry-label">
+          <span class="entry-badge">B</span>
+          Entry B — Previous Entry of A
+        </div>
+        <div class="input-row">
+          <div class="input-group">
+            <label class="input-label" for="eb-sf-ghati">Ghati</label>
+            <input type="number" class="input-field" id="eb-sf-ghati" placeholder="0" min="0" data-maxdigits="6" />
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="eb-sf-pal">Pal</label>
+            <input type="number" class="input-field" id="eb-sf-pal" placeholder="0" min="0" max="59" data-maxdigits="2" />
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="eb-sf-vipal">Vipal</label>
+            <input type="number" class="input-field" id="eb-sf-vipal" placeholder="0" min="0" max="59" data-maxdigits="2" />
+          </div>
+        </div>
+        <div class="rashi-ansh-row">
+          <div class="input-group">
+            <label class="input-label" for="eb-rashi">Rashi (0–11)</label>
+            <input type="number" class="input-field" id="eb-rashi" placeholder="0" min="0" max="11" data-maxdigits="2" />
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="eb-ansh">Ansh (0–29)</label>
+            <input type="number" class="input-field" id="eb-ansh" placeholder="0" min="0" max="29" data-maxdigits="2" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CALCULATE BUTTON ═══ -->
+    <button id="btn-calculate" class="btn-calculate" type="button">
+      ✦ &nbsp;Compute Lagnspasht&nbsp; ✦
+    </button>
+
+    <!-- ═══ RESULT PANEL ═══ -->
+    <section class="panel result-panel" id="result-panel">
+      <div class="result-header">
+        <div class="header-ornament">
+          <span class="ornament-line"></span>
+          <span class="ornament-symbol">✧</span>
+          <span class="ornament-line"></span>
+        </div>
+        <h2 class="result-main-title">Lagnspasht</h2>
+      </div>
+
+      <div class="result-grid">
+        <div class="result-card">
+          <div class="result-card-label">Rashi</div>
+          <div class="result-card-value" id="res-rashi">—</div>
+          <div class="result-card-unit">राशि</div>
+        </div>
+        <div class="result-card">
+          <div class="result-card-label">Ansh</div>
+          <div class="result-card-value" id="res-ansh">—</div>
+          <div class="result-card-unit">अंश</div>
+        </div>
+        <div class="result-card">
+          <div class="result-card-label">Kala</div>
+          <div class="result-card-value" id="res-kala">—</div>
+          <div class="result-card-unit">कला</div>
+        </div>
+        <div class="result-card">
+          <div class="result-card-label">Vikla</div>
+          <div class="result-card-value" id="res-vikla">—</div>
+          <div class="result-card-unit">विकला</div>
+        </div>
+      </div>
+
+      <!-- Steps Toggle -->
+      <button id="steps-toggle" class="steps-toggle" type="button">▼ Show Calculation Steps</button>
+
+      <!-- Steps Panel -->
+      <div id="steps-panel" class="steps-panel">
+        <ol id="steps-list" class="steps-list" style="display: none;"></ol>
+      </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="app-footer">
+      <div class="footer-divider"></div>
+      Crafted with precision for Vedic Jyotish
+    </footer>
+
+  </div>
+
+  <script src="calculator.js"></script>
+</body>
+</html>
