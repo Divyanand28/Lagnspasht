@@ -211,7 +211,7 @@ const DataAgent = (() => {
 
     const errors = [];
 
-    // Entry A's Sarini Fal must be just greater than input Sarini Fal
+    // Entry A's Sarini Fal must be greater than input Sarini Fal
     if (sfA_vipal <= sfVipal) {
       errors.push(
         `Entry A Sarini Fal (${formatGPV(data.entryA.sf.ghati, data.entryA.sf.pal, data.entryA.sf.vipal)}) ` +
@@ -220,15 +220,7 @@ const DataAgent = (() => {
       );
     }
 
-    // Entry B must be ≤ Sarini Fal and strictly less than Entry A
-    if (sfB_vipal > sfVipal) {
-      errors.push(
-        `Entry B Sarini Fal (${formatGPV(data.entryB.sf.ghati, data.entryB.sf.pal, data.entryB.sf.vipal)}) ` +
-        `must be less than or equal to Sarini Fal (${formatGPV(...Object.values(fromVipal(sfVipal)))}). ` +
-        `Entry B is the previous Panchang entry before A.`
-      );
-    }
-
+    // Entry B must be < Entry A
     if (sfB_vipal >= sfA_vipal) {
       errors.push(
         `Entry B Sarini Fal (${formatGPV(data.entryB.sf.ghati, data.entryB.sf.pal, data.entryB.sf.vipal)}) ` +
@@ -309,17 +301,17 @@ const CalculationAgent = (() => {
 
     // ── STEP 6: Vikla ──
     // Vikla = floor( (Remainder × 60) / EkJatiyaFal )
-    const viklaProduct   = kalaRemainder * 60;
-    let vikla             = Math.floor(viklaProduct / ekJatiyaFal);
-    const viklaRemainder  = viklaProduct % ekJatiyaFal;
+    const viklaProduct = kalaRemainder * 60;
+    let vikla = Math.floor(viklaProduct / ekJatiyaFal);
+    const viklaRemainder = viklaProduct % ekJatiyaFal;
 
     if (viklaRemainder > (ekJatiyaFal / 2)) {
       vikla = vikla + 1;
     }
 
-    steps.viklaProduct   = viklaProduct;
+    steps.viklaProduct = viklaProduct;
     steps.viklaRemainder = viklaRemainder;
-    steps.vikla          = vikla;
+    steps.vikla = vikla;
 
     // ── STEP 7: Final Result ──
     // Rashi & Ansh come from Entry B
@@ -469,7 +461,7 @@ const UIAgent = (() => {
       },
       {
         label: 'Step 6 — Vikla Calculation',
-        value: `(${steps.kalaRemainder} × 60) / ${steps.ekJatiyaFal} = ${steps.viklaProduct} / ${steps.ekJatiyaFal} = <span class="highlight">${steps.vikla} Vikla</span> (remainder ${steps.viklaRemainder}, half ${steps.ekJatiyaFal / 2})`
+        value: `(${steps.kalaRemainder} × 60) / ${steps.ekJatiyaFal} = ${steps.viklaProduct} / ${steps.ekJatiyaFal} = <span class="highlight">${steps.vikla} Vikla</span>`
       },
       {
         label: 'Step 7 — Final Lagnspasht',
